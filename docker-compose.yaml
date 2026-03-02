@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  airflow:
+    image: apache/airflow:2.9.3
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./output:/opt/airflow/output
+      - ./requirements.txt:/opt/airflow/requirements.txt
+    command: >
+      bash -c "
+      pip install --no-cache-dir -r /opt/airflow/requirements.txt &&
+      airflow standalone
+      "
